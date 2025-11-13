@@ -573,6 +573,7 @@
 
         // 장면 렌더링
         function renderScene(sceneId) {
+            window.scrollTo(0, 0);
             const scene = gameData[sceneId];
             if (!scene) {
                 console.error(`'${sceneId}' 장면을 찾을 수 없습니다.`);
@@ -713,3 +714,4 @@
     </script>
 </body>
 </html>
+
