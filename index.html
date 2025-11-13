@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>〈1930, 나의 선택〉</title>
+    <title>〈일제강점기, 나의 선택〉</title>
     <!-- Tailwind CSS CDN --><script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts (Noto Serif & Noto Sans) --><link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,18 +46,17 @@
         <div class="bg-white text-gray-900 p-8 rounded-lg shadow-2xl text-center max-w-md w-full">
             <h1 class="text-3xl font-bold font-serif mb-4">게임 안내</h1>
             <p class="text-left mb-4">
-                이 게임은 1930년, 일제강점기를 살아가는 15세 조선인 청년의 삶을 선택하는 이야기입니다.<br><br>
-                여러분의 모든 선택은 5가지 능력치에 영향을 줍니다:
+                이 게임은 일제강점기를 살아가는 15세 조선인 청년의 삶을 선택하는 이야기입니다.<br><br>
+                여러분의 모든 선택은 4가지 요소 점수에 영향을 줍니다:
             </p>
             <ul class="text-left list-disc list-inside mb-6">
                 <li><b>💰 돈:</b> 생계와 활동을 위한 자산</li>
                 <li><b>🕊️ 신념:</b> 민족의식과 내면의 다짐</li>
                 <li><b>🔥 위험:</b> 일제에 의한 감시와 체포 가능성</li>
-                <li><b>😊 안위:</b> 개인의 안전과 평안함 </li>
                 <li><b>🎖️ 명예:</b> 동포들 사이의 존경과 자긍심</li>
             </ul>
             <p class="text-left mb-6">
-                여러분이 누적한 능력치에 따라, 1945년 광복의 순간에 7가지의 다른 엔딩을 맞이하게 됩니다.
+                여러분이 누적한 점수에 따라, 1945년 광복의 순간에 7가지의 다른 엔딩을 맞이하게 됩니다.
             </p>
             <button id="show-start-screen-btn" class="w-full bg-indigo-600 text-white p-3 rounded-lg font-bold hover:bg-indigo-700 transition">
                 이름 입력하러 가기
@@ -70,7 +69,7 @@
         <div class="bg-white text-gray-900 p-8 rounded-lg shadow-2xl text-center max-w-sm w-full">
             <h1 class="text-3xl font-bold font-serif mb-3">일제강점기 인생게임<br>[1930, 나의 선택]</h1>
             <p class="text-xs text-gray-500 mb-6">
-                [초등] 사회(김정인)<br>2. 사회의 새로운 변화와 오늘날의 우리│118~121쪽
+                [초등] 사회(김정인)⑤<br>2. 사회의 새로운 변화와 오늘날의 우리│118~121쪽
             </p>
             <p class="mb-6">이 혼란의 시대, 당신의 이름은 무엇입니까?</p>
             <input type="text" id="player-name-input" class="w-full p-3 border border-gray-300 rounded-lg text-center" placeholder="예: 김복동" value="">
@@ -122,7 +121,7 @@
 
                 <div id="ending-footer" class="hidden mt-8 pt-4 border-t border-gray-200 text-center">
                     <p class="text-xs text-gray-500 mb-2">
-                        [초등] 사회(김정인)<br>2. 사회의 새로운 변화와 오늘날의 우리│118~121쪽
+                        [초등] 사회(김정인)⑤<br>2. 사회의 새로운 변화와 오늘날의 우리│118~121쪽
                     </p>
                     <p class="text-xs text-gray-400">
                         관련 문의: wptnwptn@sen.go.kr
@@ -144,7 +143,6 @@
             money: 0,
             conviction: 0,      // 신념
             danger: 0,          // 위험
-            selfPreservation: 0, // 안위 
             honor: 0,           // 명예
         };
         let currentScene = 'intro'; // 시작 장면 ID
@@ -169,9 +167,9 @@
         // [!!대규모 수정!!] 확장된 시나리오 및 능력치 반영
         const gameData = {
             'intro': {
-                text: "1930년, 조선.<br><br>거리엔 일본 순사들의 발소리와 함께, 학교에선 일본어가 울려 퍼진다.<br><br>{playerName}은(는) 이제 막 열다섯 살이 된 조선의 청년이다.<br><br>이 혼란의 시대, 어떤 삶을 살 것인가?",
+                text: "1910년대, 조선.<br><br>거리엔 일본 순사들의 발소리와 함께, 학교에선 일본어가 울려 퍼진다.<br><br>{playerName}은(는) 이제 막 열다섯 살이 된 조선의 청년이다.<br><br>이 혼란의 시대, 어떤 삶을 살 것인가?",
                 image: "images/01_intro.png",
-                education: "1930년대는 일제가 '민족 말살 통치'를 본격화하던 시기입니다. '내선일체', '황국신민화' 정책을 내세워 조선의 민족성을 없애려 했습니다.",
+                education: "1910년대는 일제가 헌병경찰을 앞세워 조선을 강압적으로 다스리던 ‘무단통치’의 시대였습니다. 조선인의 자유와 권리는 심하게 제한되었습니다.",
                 choices: [
                     { text: "다음으로", next: 'initial_choice' }
                 ]
@@ -182,10 +180,10 @@
                 education: "당시 조선 사회는 신분제가 철폐되었음에도 여전히 전통적인 배경과 경제력에 따라 삶의 모습이 크게 달랐습니다.",
                 isInitial: true,
                 choices: [
-                    { text: "A. 몰락한 양반가 자식 (배움과 자존심)", next: 'act1_intro', stats: { money: 2, conviction: 4 } },
-                    { text: "B. 가난한 농민의 자녀 (근면, 현실적)", next: 'act1_intro', stats: { money: 1, conviction: 3 } },
-                    { text: "C. 일본 상점 점원 집안 (안정, 타협적)", next: 'act1_intro', stats: { money: 4, conviction: 2 } },
-                    { text: "D. 독립운동가의 자녀 (정의감, 위험 수반)", next: 'act1_intro', stats: { money: 1, conviction: 5, danger: 2 } }
+                    { text: "A. 몰락한 양반가 자식: 자존심이 강하며 배움에 힘씁니다.", next: 'act1_intro', stats: { money: 1, conviction: 2 } },
+                    { text: "B. 가난한 농민의 자녀: 근면하고 현실적입니다.", next: 'act1_intro', stats: { money: 1, conviction: 1 } },
+                    { text: "C. 일본 상점 점원 집안: 타협적이며 안정을 꿈꿉니다.", next: 'act1_intro', stats: { money: 4 } },
+                    { text: "D. 독립운동가의 자녀: 위험을 수반하며 정의롭습니다.", next: 'act1_intro', stats: { money: 1, conviction: 3, danger: 2 } }
                 ]
             },
             // --- 제 1막: 학교 (5개 상황) ---
@@ -202,7 +200,7 @@
                 image: "images/04_act1_gate.png",
                 education: "일제는 1910년대 '무단 통치' 시기, 교사들에게까지 제복을 입히고 칼을 차게 하여 학생들에게 공포심을 심어주었습니다.",
                 choices: [
-                    { text: "교사에게 90도로 허리 숙여 사과한다.", next: 'act1_scene2_name', stats: { selfPreservation: -1, danger: -1 } },
+                    { text: "교사에게 90도로 허리 숙여 사과한다.", next: 'act1_scene2_name', stats: { danger: -1, conviction: -1 } },
                     { text: "들키지 않게 뒷문으로 숨어 들어간다.", next: 'act1_scene2_name', stats: { danger: +1 } },
                     { text: "당당하게 걷다 붙잡힌다. '왜 늦었나!'", next: 'act1_scene2_name', stats: { conviction: +1, danger: +2 } }
                 ]
@@ -213,7 +211,7 @@
                 education: "창씨개명 (1939년 말~1940년) : 일제는 조선인에게 일본식 성과 이름을 강요했습니다. 따르지 않으면 학교 입학, 취직, 배급 등에서 불이익을 주었습니다.",
                 choices: [
                     { text: "급조한 일본식 이름으로 대답한다.", next: 'act1_scene3_textbook', stats: { conviction: -1, danger: -1 } },
-                    { text: "“제 이름은 {playerName}입니다.” 조선 이름을 고집한다.", next: 'act1_scene3_textbook', stats: { conviction: +2, danger: +2 } }
+                    { text: "“제 이름은 {playerName}입니다.” 조선 이름을 고집한다.", next: 'act1_scene3_textbook', stats: { conviction: +1, danger: +2 } }
                 ]
             },
             'act1_scene3_textbook': {
@@ -221,7 +219,7 @@
                 image: "images/06_act1_textbook.png",
                 education: "일제는 조선어 교육을 점차 축소하다가 1938년에는 조선어 과목을 폐지하고, 일본어를 '국어'로 사용하도록 강요했습니다.",
                 choices: [
-                    { text: "어쩔 수 없다. 일본어 교과서를 소리 내어 읽는다.", next: 'act1_scene4_corridor', stats: { conviction: -1, selfPreservation: +1 } },
+                    { text: "어쩔 수 없다. 일본어 교과서를 소리 내어 읽는다.", next: 'act1_scene4_corridor', stats: { conviction: -1, danger: -1 } },
                     { text: "책상 밑에 몰래 '한글'을 끄적여본다.", next: 'act1_scene4_corridor', stats: { conviction: +1, danger: +1 } },
                     { text: "'이건 우리말이 아니잖아요.' 작게 읊조리다 교사에게 걸린다.", next: 'act1_scene4_corridor', stats: { conviction: +2, danger: +2 } }
                 ]
@@ -231,9 +229,9 @@
                 image: "images/07_act1_corridor.png",
                 education: "학교 내 조선어 사용 금지는 학생들 사이의 감시와 폭력으로 이어지기도 했습니다. 이는 민족적 차별의 일상이었습니다.",
                 choices: [
-                    { text: "'죄송합니다!' 바로 일본어로 사과하고 도망친다.", next: 'act1_scene5_paper', stats: { conviction: -1, danger: -1 } },
+                    { text: "'すみません。' 바로 일본어로 사과하고 도망친다.", next: 'act1_scene5_paper', stats: { conviction: -1, danger: -1 } },
                     { text: "맞서 노려본다. '우리말로 말하는 게 죄인가!'", next: 'act1_scene5_paper', stats: { conviction: +2, danger: +2 } },
-                    { text: "친구를 버리고 혼자 도망친다.", next: 'act1_scene5_paper', stats: { selfPreservation: +1, conviction: -2, honor: -1 } }
+                    { text: "친구를 버리고 혼자 도망친다.", next: 'act1_scene5_paper', stats: { conviction: -2, honor: -1 } }
                 ]
             },
             'act1_scene5_paper': {
@@ -241,7 +239,7 @@
                 image: "images/08_act1_paper.png",
                 education: "일제는 언론을 엄격히 통제했습니다. '독립신문'과 같은 항일 간행물은 비밀리에 제작되고 배포되었으며, 소지하는 것만으로도 큰 위험에 처할 수 있었습니다.",
                 choices: [
-                    { text: "위험하다. 아무 일 없는 척 덮어둔다.", next: 'act2_intro', stats: { selfPreservation: +1 } },
+                    { text: "위험하다. 아무 일 없는 척 덮어둔다.", next: 'act2_intro', stats: { danger: -1 } },
                     { text: "친한 친구들과 몰래 돌려본다.", next: 'act2_intro', stats: { conviction: +2, danger: +2 } },
                     { text: "선생님께 가져다주어 처벌을 피한다.", next: 'act2_intro', stats: { danger: -2, conviction: -2 } }
                 ]
@@ -252,10 +250,10 @@
                 image: "images/09_act2_intro.png",
                 education: "1930~40년대 조선인 청년들은 극심한 취업난과 차별 속에서 자신의 길을 선택해야 했습니다. 생존을 위한 길, 신념을 위한 길 등 다양한 삶의 모습이 나타났습니다.",
                 choices: [
-                    { text: "기자 (진실 vs 검열)", next: 'act2_journalist_1' },
-                    { text: "독립운동가 (용기 vs 위험)", next: 'act2_activist_1' },
-                    { text: "상점 점원 (생존 vs 양심)", next: 'act2_merchant_1' },
-                    { text: "유학생 (거리 vs 조국)", next: 'act2_student_1' }
+                    { text: "기자: 일제의 검열을 피해 진실을 밝힐 것인가?", next: 'act2_journalist_1' },
+                    { text: "독립운동가: 위험을 무릅쓰고 용기를 펼칠 것인가?", next: 'act2_activist_1' },
+                    { text: "상점 점원: 생존을 뒤로 하고 양심을 지킬 것인가?", next: 'act2_merchant_1' },
+                    { text: "유학생: 조국을 위해 어디까지 헌신할 것인가?", next: 'act2_student_1' }
                 ]
             },
             // 2막: 기자 루트
@@ -714,4 +712,5 @@
     </script>
 </body>
 </html>
+
 
