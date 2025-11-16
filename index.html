@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>〈일제강점기, 나의 선택〉</title>
+    <title>〈1945, 나의 선택〉</title>
     <!-- Tailwind CSS CDN --><script src="https://cdn.tailwindcss.com"></script>
     <!-- Google Fonts (Noto Serif & Noto Sans) --><link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -46,7 +46,7 @@
         <div class="bg-white text-gray-900 p-8 rounded-lg shadow-2xl text-center max-w-md w-full">
             <h1 class="text-3xl font-bold font-serif mb-4">게임 안내</h1>
             <p class="text-left mb-4">
-                이 게임은 일제강점기를 살아가는 15세 조선인 청년의 삶을 선택하는 이야기입니다.<br><br>
+                이 게임은 일제강점기를 살아가는 조선인 청년의 삶을 선택하는 이야기입니다.<br><br>
                 여러분의 모든 선택은 4가지 점수에 영향을 줍니다:
             </p>
             <ul class="text-left list-disc list-inside mb-6">
@@ -59,7 +59,7 @@
                 여러분이 누적한 점수에 따라, 1945년 광복의 순간에 11가지의 다른 엔딩을 맞이하게 됩니다.
             </p>
             <button id="show-start-screen-btn" class="w-full bg-indigo-600 text-white p-3 rounded-lg font-bold hover:bg-indigo-700 transition">
-                이름 입력하러 가기
+                나의 이름은..
             </button>
         </div>
     </div>
@@ -67,12 +67,12 @@
     <!-- 게임 시작 화면 (이름 입력) (Z-index: 30) -->
     <div id="start-screen" class="fixed inset-0 bg-black bg-opacity-90 flex flex-col items-center justify-center z-30 transition-opacity duration-500 p-4 opacity-0" style="opacity: 0; display: none;">
         <div class="bg-white text-gray-900 p-8 rounded-lg shadow-2xl text-center max-w-sm w-full">
-            <h1 class="text-3xl font-bold font-serif mb-3">일제강점기 인생게임<br>[1930, 나의 선택]</h1>
+            <h1 class="text-3xl font-bold font-serif mb-3">일제강점기 인생게임<br>[1945, 나의 선택]</h1>
             <p class="text-xs text-gray-500 mb-6">
                 [초등] 사회(김정인)⑤<br>2. 사회의 새로운 변화와 오늘날의 우리│118~121쪽
             </p>
             <p class="mb-6">이 혼란의 시대, 당신의 이름은 무엇입니까?</p>
-            <input type="text" id="player-name-input" class="w-full p-3 border border-gray-300 rounded-lg text-center" placeholder="예: 홍길동" value="">
+            <input type="text" id="player-name-input" class="w-full p-3 border border-gray-300 rounded-lg text-center" placeholder="예: 홍길동" value="청년">
             <button id="start-game-btn" class="w-full bg-indigo-600 text-white p-3 rounded-lg mt-4 font-bold hover:bg-indigo-700 transition">
                 1910년대로...
             </button>
@@ -759,6 +759,7 @@
     </script>
 </body>
 </html>
+
 
 
 
