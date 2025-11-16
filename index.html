@@ -137,17 +137,19 @@
         <!-- JavaScript로 내용 채워넣기 -->
     </div>
 
-    <!-- [추가] 배경음악 -->
-    <audio id="bg-music" loop>
-        <!-- [알림] 이 링크는 예시입니다. 원하시는 잔잔하고 무거운 느낌의 .mp3 링크로 교체하세요. -->
-        <!-- 예시 링크 (Pixabay - The Sadness of the Heart) -->
-        <source src="https://cdn.pixabay.com/audio/2022/10/13/audio_b2889e3a6c.mp3" type="audio/mpeg">
-        브라우저가 오디오 태그를 지원하지 않습니다.
-    </audio>
+    <!-- [BGM] HTML 오디오 태그 추가 -->
+    <audio id="bgm-audio" loop src="bgm.mp3"></audio>
 
-    <!-- [추가] 음악 컨트롤 버튼 (Z-index: 30) -->
-    <button id="mute-btn" class="fixed bottom-4 right-4 z-30 bg-gray-700 text-white px-3 py-2 rounded-full text-sm shadow-lg hover:bg-gray-600 transition">
-        Unmute 🔈
+    <!-- [추가] BGM 음소거 버튼 -->
+    <button id="mute-btn" class="fixed top-4 right-4 z-50 bg-indigo-600 text-white p-2 rounded-full shadow-lg hover:bg-indigo-700 transition">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <!-- [수정] 아이콘 경로를 하나로 단순화 (꺼진 아이콘은 CSS로 처리) -->
+            <path id="mute-icon-path" d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            <!-- [추가] 음소거 시 X 표시 -->
+            <line id="mute-icon-line1" x1="23" y1="9" x2="17" y2="15" class="hidden"></line>
+            <line id="mute-icon-line2" x1="17" y1="9" x2="23" y2="15" class="hidden"></line>
+        </svg>
     </button>
 
     <script>
@@ -590,13 +592,32 @@
             updateStatsDisplay();
             renderScene('intro');
 
-            // [추가] 게임 시작 시 음악 재생
-            // 사용자가 "시작" 버튼을 클릭했기 때문에 브라우저에서 재생이 허용됩니다.
-            bgMusic.muted = false; // 음소거 해제
-            bgMusic.play().catch(error => {
-                console.warn("배경음악 재생이 브라우저에 의해 차단되었습니다.", error);
-            });
-            muteBtn.innerHTML = 'Mute 🔇'; // 버튼 텍스트 변경
+            // --- 4. BGM 로직 ---
+        // [수정] Tone.js 관련 함수(setupBGM, playBGM) 모두 삭제
+        // HTML <audio> 태그를 직접 제어하는 새 함수로 변경
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            const audio = document.getElementById('bgm-audio');
+            audio.muted = isMuted;
+
+            // [수정] 아이콘 변경 로직 단순화
+            const path = document.getElementById('mute-icon-path');
+            const line1 = document.getElementById('mute-icon-line1');
+            const line2 = document.getElementById('mute-icon-line2');
+
+            if (isMuted) {
+                path.classList.add('hidden');
+                line1.classList.remove('hidden');
+                line2.classList.remove('hidden');
+            } else {
+                path.classList.remove('hidden');
+                line1.classList.add('hidden');
+                line2.classList.add('hidden');
+                
+                // 음소거 해제 시 즉시 재생 시도 (사용자 상호작용 후 가능)
+                audio.play().catch(e => console.log("BGM 재생 실패:", e));
+            }
         }
 
         // 스탯 UI 업데이트
@@ -798,7 +819,7 @@
         }
         
 
-        // --- 5. 게임 초기화 ---
+// --- 6. 게임 초기화 ---
         window.onload = () => {
             // [추가] 튜토리얼 -> 이름입력 -> 게임시작 순서
             showStartScreenBtn.onclick = () => {
@@ -818,12 +839,8 @@
                 }
             });
 
-            // [추가] 음소거 버튼 클릭 이벤트
+            // [BGM] 음소거 버튼 이벤트
             muteBtn.onclick = toggleMute;
-
-            // [추가] 페이지 로드 시 음악을 기본적으로 Mute 상태로 (사용자가 시작 전까지)
-            bgMusic.muted = true;
-            muteBtn.innerHTML = 'Unmute 🔈';
 
             // 페이지 로드 시 튜토리얼 화면 바로 표시
             tutorialScreen.style.display = 'flex';
@@ -832,5 +849,6 @@
     </script>
 </body>
 </html>
+
 
 
