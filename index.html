@@ -137,21 +137,8 @@
         <!-- JavaScript로 내용 채워넣기 -->
     </div>
 
-    <!-- [BGM] HTML 오디오 태그 추가 -->
-    <audio id="bgm-audio" loop src="bgm.mp3"></audio>
 
-    <!-- [추가] BGM 음소거 버튼 -->
-    <button id="mute-btn" class="fixed top-4 right-4 z-50 bg-indigo-600 text-white p-2 rounded-full shadow-lg hover:bg-indigo-700 transition">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <!-- [수정] 아이콘 경로를 하나로 단순화 (꺼진 아이콘은 CSS로 처리) -->
-            <path id="mute-icon-path" d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-            <!-- [추가] 음소거 시 X 표시 -->
-            <line id="mute-icon-line1" x1="23" y1="9" x2="17" y2="15" class="hidden"></line>
-            <line id="mute-icon-line2" x1="17" y1="9" x2="23" y2="15" class="hidden"></line>
-        </svg>
-    </button>
-
+    
     <script>
         // --- 1. 게임 상태 변수 ---
         let playerStats = {
@@ -588,33 +575,6 @@
             updateStatsDisplay();
             renderScene('intro');
 
-            // --- 4. BGM 로직 ---
-        // [수정] Tone.js 관련 함수(setupBGM, playBGM) 모두 삭제
-        // HTML <audio> 태그를 직접 제어하는 새 함수로 변경
-
-        function toggleMute() {
-            isMuted = !isMuted;
-            const audio = document.getElementById('bgm-audio');
-            audio.muted = isMuted;
-
-            // [수정] 아이콘 변경 로직 단순화
-            const path = document.getElementById('mute-icon-path');
-            const line1 = document.getElementById('mute-icon-line1');
-            const line2 = document.getElementById('mute-icon-line2');
-
-            if (isMuted) {
-                path.classList.add('hidden');
-                line1.classList.remove('hidden');
-                line2.classList.remove('hidden');
-            } else {
-                path.classList.remove('hidden');
-                line1.classList.add('hidden');
-                line2.classList.add('hidden');
-                
-                // 음소거 해제 시 즉시 재생 시도 (사용자 상호작용 후 가능)
-                audio.play().catch(e => console.log("BGM 재생 실패:", e));
-            }
-        }
 
         // 스탯 UI 업데이트
         function updateStatsDisplay() {
@@ -647,16 +607,6 @@
             }
         }
 
-        // [추가] 음악 음소거 토글 함수
-        function toggleMute() {
-            if (bgMusic.muted) {
-                bgMusic.muted = false;
-                muteBtn.innerHTML = 'Mute 🔇';
-            } else {
-                bgMusic.muted = true;
-                muteBtn.innerHTML = 'Unmute 🔈';
-            }
-        }
 
         // 장면 렌더링
         function renderScene(sceneId) {
@@ -835,8 +785,6 @@
                 }
             });
 
-            // [BGM] 음소거 버튼 이벤트
-            muteBtn.onclick = toggleMute;
 
             // 페이지 로드 시 튜토리얼 화면 바로 표시
             tutorialScreen.style.display = 'flex';
@@ -845,6 +793,7 @@
     </script>
 </body>
 </html>
+
 
 
 
